@@ -6,7 +6,7 @@ This file contains all tasks required to build the Monthly Budget Manager app fr
 
 - [x] SETUP-001: Initialize Quasar project with proper configuration
 - [x] SETUP-002: Set up project directory structure according to specifications
-- [ ] SETUP-003: Configure linting and code formatting standards
+- [x] SETUP-003: Configure linting and code formatting standards
 - [ ] SETUP-004: Set up testing environment with Vitest
 - [ ] SETUP-005: Create Git repository with initial commit and branching strategy
 
