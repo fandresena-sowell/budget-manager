@@ -1,13 +1,5 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
-        <q-toolbar-title>
-          Monthly Budget Manager
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-
     <q-page-container>
       <div class="auth-container">
         <div class="auth-card-container">

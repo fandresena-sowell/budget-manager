@@ -18,6 +18,8 @@ onMounted(() => {
     userStore.setUser(user);
     if (!user && router.currentRoute.value.meta.requiresAuth) {
       void router.push('/login');
+    } else if (user) {
+      void router.push('/');
     }
   });
 });
