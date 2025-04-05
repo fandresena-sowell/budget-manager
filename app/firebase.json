@@ -2,5 +2,13 @@
   "firestore": {
     "rules": "firebase/firestore.rules",
     "indexes": "firebase/firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "firebase/storage.rules",
+    "cors": {
+      "origin": ["*"],
+      "method": ["GET"],
+      "maxAgeSeconds": 3600
+    }
   }
 }
