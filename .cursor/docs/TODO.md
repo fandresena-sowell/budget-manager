@@ -13,7 +13,7 @@ This file contains all tasks required to build the Monthly Budget Manager app fr
 ## Firebase Integration
 
 - [x] FIRE-001: Set up Firebase project and configure authentication
-- [ ] FIRE-002: Implement Firestore database structure and security rules
+- [x] FIRE-002: Implement Firestore database structure and security rules
 - [ ] FIRE-003: Configure Firebase Storage for receipt uploads
 - [ ] FIRE-004: Create Firebase service wrappers for the application
 - [ ] FIRE-005: Set up real-time data synchronization

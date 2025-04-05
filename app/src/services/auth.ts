@@ -7,7 +7,9 @@ import {
   type User,
   type UserCredential,
 } from 'firebase/auth';
-import { auth } from 'src/boot/firebase';
+import { auth, db } from 'src/boot/firebase';
+import { doc, setDoc, Timestamp } from 'firebase/firestore';
+import { initializeDefaultCategories } from 'src/utils/categoryInitializer';
 
 /**
  * Authentication service wrapper for Firebase Authentication
@@ -32,8 +34,41 @@ export class FirebaseAuthService implements AuthService {
    * @param password User's password
    * @returns Promise resolving to UserCredential
    */
-  register(email: string, password: string): Promise<UserCredential> {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async register(email: string, password: string): Promise<UserCredential> {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      // Create user profile in Firestore
+      const user = userCredential.user;
+      const now = Timestamp.now();
+
+      await setDoc(doc(db, 'users', user.uid), {
+        id: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        settings: {
+          currency: 'USD',
+          locale: 'en-US',
+          theme: 'light',
+          notifications: {
+            email: true,
+            push: true,
+            budgetAlerts: true
+          }
+        },
+        createdAt: now,
+        updatedAt: now
+      });
+
+      // Initialize default categories for the new user
+      await initializeDefaultCategories(user.uid);
+
+      return userCredential;
+    } catch (error) {
+      console.error('Error during registration:', error);
+      throw error;
+    }
   }
 
   /**
