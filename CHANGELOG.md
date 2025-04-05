@@ -36,6 +36,13 @@ All notable changes to the Monthly Budget Manager project will be documented in 
 - Added utility for initializing default categories for new users
 - Integrated user profile creation with Firebase Authentication
 - Created database schema documentation
+- Created login and registration components (AUTH-001)
+- Implemented form validation for authentication forms
+- Added password strength indicator for registration
+- Created "Forgot Password" functionality
+- Added "Remember Me" option for login
+- Updated router with authentication routes and navigation guards
+- Integrated authentication components with Firebase authentication service
 
 ## [0.1.0] - YYYY-MM-DD
 ### Added
