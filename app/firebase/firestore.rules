@@ -1,0 +1,125 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Function to check if the user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Function to check if the user is the owner of the document
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Function to check if all required fields are present
+    function hasRequiredFields(data, fields) {
+      return data.keys().hasAll(fields);
+    }
+    
+    // Function to validate timestamp fields
+    function validTimestamps(data) {
+      return data.createdAt is timestamp && data.updatedAt is timestamp;
+    }
+    
+    // Common validation for all user-owned documents
+    function isValidUserDocument() {
+      let userId = request.resource.data.userId;
+      return isOwner(userId) && validTimestamps(request.resource.data);
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Allow reading your own user document
+      allow get: if isOwner(userId);
+      
+      // Allow creating your own user document with valid data
+      allow create: if isOwner(userId) 
+        && hasRequiredFields(request.resource.data, ['email', 'settings'])
+        && validTimestamps(request.resource.data);
+      
+      // Allow updating your own user document
+      allow update: if isOwner(userId) 
+        && request.resource.data.diff(resource.data).affectedKeys()
+          .hasAny(['displayName', 'photoURL', 'settings', 'updatedAt']);
+      
+      // Allow deleting your own user document
+      allow delete: if isOwner(userId);
+    }
+    
+    // Categories collection
+    match /categories/{categoryId} {
+      // Allow reading your own categories
+      allow get, list: if isAuthenticated() 
+        && (resource.data.userId == request.auth.uid || resource.data.isSystem == true);
+      
+      // Allow creating your own categories
+      allow create: if isValidUserDocument()
+        && hasRequiredFields(request.resource.data, ['name', 'color', 'icon', 'isSystem']);
+      
+      // Allow updating your own categories
+      allow update: if isOwner(resource.data.userId)
+        && request.resource.data.userId == resource.data.userId
+        && !resource.data.isSystem; // System categories cannot be modified
+      
+      // Allow deleting your own categories (but not system ones)
+      allow delete: if isOwner(resource.data.userId) && !resource.data.isSystem;
+    }
+    
+    // Incomes collection
+    match /incomes/{incomeId} {
+      // Allow reading your own incomes
+      allow get, list: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      
+      // Allow creating incomes with valid data
+      allow create: if isValidUserDocument()
+        && hasRequiredFields(request.resource.data, [
+          'amount', 'source', 'date', 'isRecurring'
+        ])
+        && request.resource.data.amount > 0;
+      
+      // Allow updating your own incomes
+      allow update: if isOwner(resource.data.userId);
+      
+      // Allow deleting your own incomes
+      allow delete: if isOwner(resource.data.userId);
+    }
+    
+    // Expenses collection
+    match /expenses/{expenseId} {
+      // Allow reading your own expenses
+      allow get, list: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      
+      // Allow creating expenses with valid data
+      allow create: if isValidUserDocument()
+        && hasRequiredFields(request.resource.data, [
+          'amount', 'description', 'date', 'categoryId', 'isRecurring'
+        ])
+        && request.resource.data.amount > 0;
+      
+      // Allow updating your own expenses
+      allow update: if isOwner(resource.data.userId);
+      
+      // Allow deleting your own expenses
+      allow delete: if isOwner(resource.data.userId);
+    }
+    
+    // Budgets collection
+    match /budgets/{budgetId} {
+      // Allow reading your own budgets
+      allow get, list: if isAuthenticated() && resource.data.userId == request.auth.uid;
+      
+      // Allow creating budgets with valid data
+      allow create: if isValidUserDocument()
+        && hasRequiredFields(request.resource.data, [
+          'month', 'categories', 'totalBudget'
+        ])
+        && request.resource.data.totalBudget >= 0;
+      
+      // Allow updating your own budgets
+      allow update: if isOwner(resource.data.userId);
+      
+      // Allow deleting your own budgets
+      allow delete: if isOwner(resource.data.userId);
+    }
+  }
+} 

@@ -1,4 +1,4 @@
 // Export all service wrappers from this file
-// Example: export { authService } from './authService'
-// Example: export { firestoreService } from './firestoreService'
+export { authService, type AuthService } from './auth';
+export { firestoreService, type QueryOptions } from './firestore';
 // Example: export { storageService } from './storageService'

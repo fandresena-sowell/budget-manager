@@ -26,6 +26,16 @@ All notable changes to the Monthly Budget Manager project will be documented in 
 - Added test directory structure mirroring source code
 - Created test configuration with coverage reporting
 - Added sample test files for component and utility testing
+- Completed Firebase project setup and configuration (FIRE-001)
+- Created comprehensive authentication service with register, login, logout and password reset functionality
+- Implemented Firestore database structure and security rules (FIRE-002)
+- Created data models for Users, Categories, Incomes, Expenses, and Budgets
+- Developed comprehensive Firestore service wrapper with generic CRUD operations
+- Implemented Firestore security rules with user-based access control and data validation
+- Created composite indexes for efficient querying
+- Added utility for initializing default categories for new users
+- Integrated user profile creation with Firebase Authentication
+- Created database schema documentation
 
 ## [0.1.0] - YYYY-MM-DD
 ### Added
