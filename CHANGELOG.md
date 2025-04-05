@@ -26,6 +26,8 @@ All notable changes to the Monthly Budget Manager project will be documented in 
 - Added test directory structure mirroring source code
 - Created test configuration with coverage reporting
 - Added sample test files for component and utility testing
+- Completed Firebase project setup and configuration (FIRE-001)
+- Created comprehensive authentication service with register, login, logout and password reset functionality
 
 ## [0.1.0] - YYYY-MM-DD
 ### Added
