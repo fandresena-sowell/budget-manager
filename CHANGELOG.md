@@ -1,0 +1,58 @@
+# Changelog
+
+All notable changes to the Monthly Budget Manager project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+
+## [Unreleased]
+
+### Added
+- Initial project setup with README.md and CHANGELOG.md
+- Project specifications document in .cursor/docs/INIT.md
+- Task template for generating detailed task instructions
+- Task list in .cursor/docs/TODO.md
+- Project planning files organized in .cursor/docs folder
+- Set up new Quasar project with Vue 3 and Composition API
+- Installed and configured Firebase SDK
+- Set up Pinia state management with user and budget stores
+- Configured Quasar plugins (Notify, Dialog, Loading)
+- Added environment variables configuration
+- Set up Capacitor for mobile development
+- Implemented Firebase authentication service
+
+## [0.1.0] - YYYY-MM-DD
+### Added
+- Project initialization
+
+<!--
+### Added
+For new features.
+
+### Changed
+For changes in existing functionality.
+
+### Deprecated
+For soon-to-be removed features.
+
+### Removed
+For now removed features.
+
+### Fixed
+For any bug fixes.
+
+### Security
+In case of vulnerabilities.
+-->
+
+<!-- 
+## Template for future versions
+
+## [x.y.z] - YYYY-MM-DD
+### Added
+- 
+
+### Changed
+-
+
+### Fixed
+-
+
+--> 
