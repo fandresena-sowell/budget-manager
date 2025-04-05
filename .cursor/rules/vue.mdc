@@ -39,4 +39,8 @@ alwaysApply: false
   
     Key Conventions
     - Optimize Web Vitals (LCP, CLS, FID) using tools like Lighthouse or WebPageTest.
+
+    App structure
+    - actual code base in in "app" folder
+    - root folder contains implementations plans and AI guidelines
     
