@@ -22,6 +22,10 @@ All notable changes to the Monthly Budget Manager project will be documented in 
 - Added AuthLayout component for authentication pages
 - Created index files for better module exports
 - Added directory structure documentation
+- Set up testing environment with Vitest, Vue Test Utils, and JSDOM
+- Added test directory structure mirroring source code
+- Created test configuration with coverage reporting
+- Added sample test files for component and utility testing
 
 ## [0.1.0] - YYYY-MM-DD
 ### Added
